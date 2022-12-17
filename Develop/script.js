@@ -61,12 +61,51 @@ function generatePassword() {
   // Initialize the password as an empty string
   let password = '';
 
+  // Initialize a variable to track the number of each character type included in the password
+  let lowercaseCount = 0;
+  let uppercaseCount = 0;
+  let symbolCount = 0;
+  let numberCount = 0;
+
   // Generate the password by selecting random characters from the array
-  for (let i = 0; i < length; i++) {
-    const index = Math.floor(Math.random() * chars.length);
-    password += chars[index];
+    while (password.length < length) {
+      // Check if we have already included at least one of each character type
+      // that the user selected
+    if (lowercase && lowercaseCount === 0) {
+      // Select a random lowercase letter
+      const index = Math.floor(Math.random() * 26);
+      password += String.fromCharCode(index + 97);
+      lowercaseCount++;
+      continue;
+  }
+  if (uppercase && uppercaseCount === 0) {
+    // Select a random uppercase letter
+    const index = Math.floor(Math.random() * 26);
+    password += String.fromCharCode(index + 65);
+    uppercaseCount++;
+    continue;
+  }
+  if (symbols && symbolCount === 0) {
+    // Select a random symbol
+    const index = Math.floor(Math.random() * symbolChars.length);
+    password += symbolChars.charAt(index);
+    symbolCount++;
+    continue;
+  }
+  if (numbers && numberCount === 0) {
+    // Select a random number
+    const index = Math.floor(Math.random() * 10);
+    password += String.fromCharCode(index + 48);
+    numberCount++;
+    continue;
   }
 
+  // If we have already included at least one of each character type
+  // or if the user did not select that character type, select a random
+  // character from the available character types
+  const index = Math.floor(Math.random() * chars.length);
+  password += chars[index];
+}
   // Return the generated password
   return password;
 }
