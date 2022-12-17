@@ -1,18 +1,36 @@
 // Assignment code here
+
 function generatePassword() {
   // Get the length of the password from the user
-  const length = window.prompt('Enter the length of the password:');
+  let length = window.prompt('Enter the length of the password (between 8 and 128 characters):');
+
+  // Validate the password length
+  while (length < 8 || length > 128) {
+    alert('The password length must be between 8 and 128 characters. Please try again.');
+    length = window.prompt('Enter the length of the password (between 8 and 128 characters):');
+  }
 
   // Get the desired character types from the user
-  const uppercase = window.confirm('Include uppercase letters in the password?');
-  const symbols = window.confirm('Include symbols in the password?');
-  const numbers = window.confirm('Include numbers in the password?');
+  let uppercase = window.confirm('Include uppercase letters in the password?');
+  let symbols = window.confirm('Include symbols in the password?');
+  let numbers = window.confirm('Include numbers in the password?');
+  let lowercase = window.confirm('Include lowercase letters in the password?');
+
+  // Validate that at least one character type is selected
+  while (!uppercase && !symbols && !numbers && !lowercase) {
+    alert('You must select at least one character type for the password. Please try again.');
+    uppercase = window.confirm('Include uppercase letters in the password?');
+    symbols = window.confirm('Include symbols in the password?');
+    numbers = window.confirm('Include numbers in the password?');
+    lowercase = window.confirm('Include lowercase letters in password?');
+  }
 
   // Set up an array of characters to include in the password
   const chars = [];
 
   // Add lowercase letters
-  for (let i = 97; i <= 122; i++) {
+  if (lowercase) {
+    for (let i = 97; i <= 122; i++) {
     chars.push(String.fromCharCode(i));
   }
 
@@ -51,9 +69,6 @@ function generatePassword() {
   return password;
 }
 
-const password = generatePassword();
-
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -69,3 +84,5 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+writePassword();
