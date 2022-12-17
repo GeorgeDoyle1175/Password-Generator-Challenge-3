@@ -33,6 +33,7 @@ function generatePassword() {
   if (lowercase) {
     for (let i = 97; i <= 122; i++) {
     chars.push(String.fromCharCode(i));
+    }
   }
 
   // Add uppercase letters if requested
@@ -69,7 +70,8 @@ function generatePassword() {
   // Return the generated password
   return password;
 }
-}
+
+
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -85,5 +87,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-const passowrd = writePassword()
