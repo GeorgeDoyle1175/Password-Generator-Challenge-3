@@ -11,20 +11,21 @@ function generatePassword() {
   }
 
   // Get the desired character types from the user
+  let lowercase = window.confirm('Include lowercase letters in the password?');
   let uppercase = window.confirm('Include uppercase letters in the password?');
   let symbols = window.confirm('Include symbols in the password?');
   let numbers = window.confirm('Include numbers in the password?');
-  let lowercase = window.confirm('Include lowercase letters in the password?');
+
 
   // Validate that at least one character type is selected
   while (!uppercase && !symbols && !numbers && !lowercase) {
     alert('You must select at least one character type for the password. Please try again.');
+    lowercase = window.confirm('Include lowercase letters in password?');
     uppercase = window.confirm('Include uppercase letters in the password?');
     symbols = window.confirm('Include symbols in the password?');
     numbers = window.confirm('Include numbers in the password?');
-    lowercase = window.confirm('Include lowercase letters in password?');
-  }
 
+  }
   // Set up an array of characters to include in the password
   const chars = [];
 
@@ -43,7 +44,7 @@ function generatePassword() {
 
   // Add symbols if requested
   if (symbols) {
-    const symbolChars = '!@#$%^&*(){}[]=<>,.';
+    const symbolChars = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
     for (let i = 0; i < symbolChars.length; i++) {
       chars.push(symbolChars.charAt(i));
     }
@@ -68,7 +69,7 @@ function generatePassword() {
   // Return the generated password
   return password;
 }
-
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -85,4 +86,4 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-writePassword();
+const passowrd = writePassword()
