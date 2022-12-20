@@ -5,7 +5,7 @@ function generatePassword() {
   let length = window.prompt('Enter the length of the password (between 8 and 128 characters):');
 
   // Validate the password length
-  while (length < 8 || length > 128) {
+  if (length < 8 || length > 128) {
     alert('The password length must be between 8 and 128 characters. Please try again.');
     length = window.prompt('Enter the length of the password (between 8 and 128 characters):');
   }
@@ -18,7 +18,7 @@ function generatePassword() {
 
 
   // Validate that at least one character type is selected
-  while (!uppercase && !symbols && !numbers && !lowercase) {
+  if (!uppercase && !symbols && !numbers && !lowercase) {
     alert('You must select at least one character type for the password. Please try again.');
     lowercase = window.confirm('Include lowercase letters in password?');
     uppercase = window.confirm('Include uppercase letters in the password?');
@@ -27,87 +27,52 @@ function generatePassword() {
 
   }
   // Set up an array of characters to include in the password
-  const chars = [];
+  let chars = [];
+  const gauranteedChars = [];
+  let criteriaCount = 0;
+  const symbolChars = ["!", "\\", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"];
+  const lowercaseChars = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  const uppercaseChars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  const numberChars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
-  // Add lowercase letters
   if (lowercase) {
-    for (let i = 97; i <= 122; i++) {
-    chars.push(String.fromCharCode(i));
-    }
+    gauranteedChars.push(lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)]);
+    chars = chars.concat(lowercaseChars);
+    criteriaCount++;
   }
-
-  // Add uppercase letters if requested
   if (uppercase) {
-    for (let i = 65; i <= 90; i++) {
-      chars.push(String.fromCharCode(i));
-    }
+    gauranteedChars.push(uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)]);
+    chars = chars.concat(uppercaseChars);
+    criteriaCount++;
   }
-
-  // Add symbols if requested
   if (symbols) {
-    const symbolChars = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
-    for (let i = 0; i < symbolChars.length; i++) {
-      chars.push(symbolChars.charAt(i));
-    }
+    gauranteedChars.push(symbolChars[Math.floor(Math.random() * symbolChars.length)]);
+    chars = chars.concat(symbolChars);
+    criteriaCount++;
   }
 
-  // Add numbers if requested
   if (numbers) {
-    for (let i = 48; i <= 57; i++) {
-      chars.push(String.fromCharCode(i));
-    }
+    gauranteedChars.push(numberChars[Math.floor(Math.random() * numberChars.length)]);
+    chars = chars.concat(numberChars);
+    criteriaCount++;
   }
 
-  // Initialize the password as an empty string
-  let password = '';
 
-  // Initialize a variable to track the number of each character type included in the password
-  let lowercaseCount = 0;
-  let uppercaseCount = 0;
-  let symbolCount = 0;
-  let numberCount = 0;
+  console.log(chars);
 
-  // Generate the password by selecting random characters from the array
-    while (password.length < length) {
-      // Check if we have already included at least one of each character type
-      // that the user selected
-    if (lowercase && lowercaseCount === 0) {
-      // Select a random lowercase letter
-      const index = Math.floor(Math.random() * 26);
-      password += String.fromCharCode(index + 97);
-      lowercaseCount++;
-      continue;
-  }
-  if (uppercase && uppercaseCount === 0) {
-    // Select a random uppercase letter
-    const index = Math.floor(Math.random() * 26);
-    password += String.fromCharCode(index + 65);
-    uppercaseCount++;
-    continue;
-  }
-  if (symbols && symbolCount === 0) {
-    // Select a random symbol
-    const index = Math.floor(Math.random() * symbolChars.length);
-    password += symbolChars.charAt(index);
-    symbolCount++;
-    continue;
-  }
-  if (numbers && numberCount === 0) {
-    // Select a random number
-    const index = Math.floor(Math.random() * 10);
-    password += String.fromCharCode(index + 48);
-    numberCount++;
-    continue;
+  let remainingPasswordCount = length - criteriaCount
+  console.log(remainingPasswordCount);
+
+  for (i = 0; i < remainingPasswordCount; i++) {
+    gauranteedChars.push(chars[Math.floor(Math.random() * chars.length)]);
   }
 
-  // If we have already included at least one of each character type
-  // or if the user did not select that character type, select a random
-  // character from the available character types
-  const index = Math.floor(Math.random() * chars.length);
-  password += chars[index];
-}
-  // Return the generated password
-  return password;
+  console.log(gauranteedChars);
+  console.log(gauranteedChars.join(""));
+
+
+  //Return the generated password
+  return gauranteedChars.join("");
 }
 
 
