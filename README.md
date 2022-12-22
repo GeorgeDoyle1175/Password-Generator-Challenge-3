@@ -1,5 +1,5 @@
 # Password Generator Starter Code
-
+<img width="1440" alt="Screen Shot 2022-12-21 at 7 09 59 PM" src="https://user-images.githubusercontent.com/119374026/209027106-c84dbef5-9854-406b-a915-31b9d1d3003d.png">
 ## Password Generator
 This is a simple password generator that allows the user to specify the length and character types of the password to be generated.
 
